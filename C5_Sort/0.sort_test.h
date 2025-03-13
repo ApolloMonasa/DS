@@ -9,8 +9,8 @@
 #define _SORT_TEST_H
 
 #include<stdlib.h>
-#include<cstring>
 #include<stdio.h>
+#include<string.h>
 #include<time.h>
 #define SMALL_DATA_N 5000
 #define BIG_DATA_N   1000000
