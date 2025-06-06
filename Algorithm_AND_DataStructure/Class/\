@@ -1,0 +1,69 @@
+/*************************************************************************
+	> File Name: 27.cpp
+	> Author: 
+	> Mail: 
+	> Created Time: Tue 11 Feb 2025 06:39:49 PM CST
+ ************************************************************************/
+
+double a, b, c, d, r[3];
+#include <iostream>
+#include <cmath>
+#include<algorithm>
+#include<stdio.h>
+
+using namespace std;
+
+// 定义函数 f(x) = ax^3 + bx^2 + cx + d
+double f(double a, double b, double c, double d, double x) {
+    return a * x * x * x + b * x * x + c * x + d;
+}
+
+// 定义导数 f'(x) = 3ax^2 + 2bx + c
+double f_prime(double a, double b, double c, double x) {
+    return 3 * a * x * x + 2 * b * x + c;
+}
+
+// 牛顿迭代法求解
+double newton_raphson(double a, double b, double c, double d, double initial_guess, double tolerance = 1e-5, int max_iterations = 1000) {
+    double x = initial_guess;
+    for (int i = 0; i < max_iterations; ++i) {
+        double fx = f(a, b, c, d, x);
+        double fpx = f_prime(a, b, c, x);
+
+        if (fabs(fpx) < tolerance) {
+            break; // 导数为0，无法继续迭代
+        }
+
+        double x_new = x - fx / fpx;
+
+        if (fabs(x_new - x) < tolerance) {
+            return x_new; // 收敛到根
+        }
+
+        x = x_new;
+    }
+    return x; // 返回近似根
+}
+
+int main(){
+    cin >> a >> b >> c >> d;
+    double initial_guess = 18.0;
+    r[0] = newton_raphson(a, b, c, d, initial_guess);
+    //先求一个根r1
+    //  d/a == r2 * r3 * r1
+    //  b/a == r2 + r3 + r1
+    //
+    // r2*r3 == d/a/r1
+    // r2+r3 == b/a - r1
+    //A == 1
+    //B ==  r1 - b/a
+    //C == d/a/r1
+    //delt == pow(B, 2) - 4C
+    //x1 = (b/a - r1+sqrt(delt))/2
+    double A = 1.0, B = r[0] - b / a, C = d / a / r[0], delt = pow(B, 2) - 4 * C;
+    r[1] = (-B - sqrt(delt)) / 2;
+    r[2] = (-B + sqrt(delt)) / 2;
+    sort(r, r+3);
+    printf("%.2lf %.2lf %.2lf\n", r[0], r[1], r[2]);
+    return 0;
+}
