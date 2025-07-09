@@ -52,7 +52,7 @@ int main() {
         dq.push_back(i);
         if(i - dq.front() == k) dq.pop_front();
 
-        printf("gmd[%d, %d] = arr[%d] = %d\n", max(i - k + 1, 0), i, dq.front(), arr[dq.front()]);
+        printf("RMQ[%d, %d] = arr[%d] = %d\n", max(i - k + 1, 0), i, dq.front(), arr[dq.front()]);
     }
     return 0;
 }
