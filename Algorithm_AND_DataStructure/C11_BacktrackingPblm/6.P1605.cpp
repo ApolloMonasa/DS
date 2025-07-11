@@ -1,8 +1,8 @@
 /*************************************************************************
-	> File Name: P1605.cpp
+	> File Name: 6.P1605.cpp
 	> Author: HDU-Apollo
 	> Mail: xyl6716@outlook.com
-	> Created Time: Sat 12 Jul 2025 07:04:07 AM CST
+	> Created Time: Sat 12 Jul 2025 07:05:34 AM CST
  ************************************************************************/
 
 #include<iostream>
@@ -23,6 +23,6 @@
 using namespace std;
 
 int main() {
-    
+
     return 0;
 }
