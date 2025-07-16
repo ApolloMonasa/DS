@@ -81,11 +81,11 @@ void find_all(char *s) {
 }
 
 void init() {
-    ncnt = 1;
     memset(Next, 0, sizeof(Next));
     memset(fail, 0, sizeof(fail));
     memset(tcnt, 0, sizeof(tcnt));
-    for (int i = 0; i < MAXN; i++) ind[i].clear();
+    for (int i = 0; i < ncnt; i++) ind[i].clear();
+    ncnt = 1;
 }
 
 void slv() {
