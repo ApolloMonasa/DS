@@ -107,7 +107,8 @@ void slv() {
 }
 
 int main() {
-    while(~scanf("%d", &n)) {
+    while(scanf("%d", &n)) {
+        if(n == 0) break;
         slv();
     }
 }
