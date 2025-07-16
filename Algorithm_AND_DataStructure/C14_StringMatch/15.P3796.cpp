@@ -23,7 +23,9 @@
 using namespace std;
 int n;
 
-char s[1000006], tcnt[200], t[200][75];
+char s[1000006], t[200][100];
+int tcnt[200];
+
 
 #define MAXN 20005
 int Next[MAXN][26];
@@ -100,7 +102,7 @@ void slv() {
     for (int i = 0; i < n; i++) {
         if (ans < tcnt[i]) ans = tcnt[i];
     }
-    printf("%d", ans);
+    printf("%d\n", ans);
     for (int i = 0; i < n; i++) {
         if(tcnt[i] == ans) printf("%s\n", t[i]);
     }
