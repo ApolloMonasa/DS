@@ -1,0 +1,91 @@
+/*************************************************************************
+	> File Name: 12.HZOJ-223.cpp
+	> Author: HDU-Apollo
+	> Mail: xyl6716@outlook.com
+	> Created Time: Sat 19 Jul 2025 12:34:51 PM CST
+ ************************************************************************/
+
+#include<iostream>
+#include<cstdio>
+#include<cstdlib>
+#include<vector>
+#include<string>
+#include<stack>
+#include<set>
+#include<map>
+#include<cmath>
+#include<cstring>
+#include<climits>
+#include<algorithm>
+#include<iomanip>
+#include<queue>
+#include<numeric>
+using namespace std;
+using ll = long long;
+#define N 10005
+#define LC(n) (2 * (n))
+#define RC(n) (LC(n) + 1)
+
+ll tree[N * 4], add[N * 4], a[N];
+int n, m, L[N * 4], R[N * 4];
+
+inline void up(int ind) {
+    tree[ind] = tree[ind * 2] + tree[ind * 2 + 1];
+    L[ind] = L[LC(ind)];
+    R[ind] = R[RC[ind]];
+}
+
+void build(int ind, int l, int r) {
+    if (r == l) {
+        tree[ind] = a[l];
+        L[ind] = l, R[ind] = r;
+        return ;
+    }
+    int mid = (l + r) / 2;
+    build(LC(ind), l, mid);
+    build(RC(ind), mid + 1, r);
+    up(ind);
+}
+
+inline void putdown(int ind) {
+    if(add[ind]) {
+        add[LC(ind)] += add[ind];
+        add[RC(ind)] += add[ind];
+        tree[LC(ind)] += add[LC(ind)] * (R[LC(ind)] - L[LC(ind)] + 1);
+        tree[RC(ind)] += add[RC(ind)] * (R[RC(ind)] - L[RC(ind)] + 1);
+        add[ind] = 0;
+    }
+}
+
+void mod(int ind, int x, int y, int z) {
+    if (L[ind] <= x && y <= R[ind]) {
+        add[ind] += z;
+        tree[ind] += (R[ind] - L[ind] + 1) * z;
+        return ;
+    }
+    int mid = (R[ind] + L[ind]) / 2;
+    putdown(ind);
+    if (mid >= x) mod(LC(ind), x, y, z);
+    if (y > mid) mod(RC(ind), x, y, z);
+    up(ind);
+}
+
+ll ask(int ind, int x, int y ) {
+
+    return 0;
+}
+
+int main() {
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) cin >> a[i];
+    build(1, 0, n - 1);
+    for (int i = 0, a, b, c, d; i < m; i++) {
+        cin >> a >> b >> c;
+        if(a == 1) {
+            cin >> d;
+            mod(1, b - 1, c - 1, d);
+        } else {
+            cout << ask(1, b - 1, c - 1) << '\n';
+        }
+    }
+}
